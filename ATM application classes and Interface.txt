@@ -1,7 +1,0 @@
-Package: com.application.bank    				com.application.atm
-	Classes							Classes
-		1.abstract class Bank					1.abstract class Atm
-		2.Account						2.StateBankAtm
-		3.StateBank						3.AccountDispatcher
-								Interfaces
-									1.AtmBanking
