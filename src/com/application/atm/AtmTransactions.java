@@ -18,14 +18,14 @@ public class AtmTransactions
 		return dispatcher.getAccount(bankId, accNo);
 	}
 
-	public String withdraw(float ammount,Account acc,String atmName, float totalAmmount)
+	public String withdraw(float ammount,Account acc,String atmName, Float totalAmmount)
 	{
 		if(ammount>0 && acc.getBalance()>=ammount)
 		{
 			acc.setBalance(acc.getBalance()-ammount);
 			totalAmmount-=ammount;
 			acc.addInPassBook("Withdrawn from  "+atmName+"	        	"+ammount +" 	    	" +acc.getBalance());
-			return "The ammount "+ammount+" withdrawn succesfully \nCurrent Balance : "+acc.getBalance();
+			return "1";
 		}
 		else
 		{
@@ -63,7 +63,6 @@ public class AtmTransactions
 		{
 			int size=acc.getPassBook().size();
 			return acc.getPassBook().subList(size-5,size);
-
 		}
 	}
 

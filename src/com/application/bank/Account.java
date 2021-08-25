@@ -10,6 +10,7 @@ public class Account
 	private float balance;
 	private int pin;
 	private String code;
+	private int bankId;
 	private String bankName;
 	private List<String> passBook;
 	
@@ -23,7 +24,7 @@ public class Account
 	
 	@Override
 	public String toString() {
-		return "acc No :"+accNo+" Name : "+accHolderName+" Bank Name "+this.bankName;
+		return "acc No :"+accNo+" Name : "+accHolderName+" Bank Name "+this.bankName+" Bank Id :"+bankId;
 	}
 
 	public void setAccNo(int accNo) {
@@ -77,6 +78,14 @@ public class Account
 
 	public void setBankName(String bankName) {
 		this.bankName = bankName;
+	}
+
+	public int getBankId() {
+		return bankId;
+	}
+
+	public void setBankId(int bankId) {
+		this.bankId = bankId;
 	}
 	
 }

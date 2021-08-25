@@ -7,12 +7,12 @@ import com.application.bank.Account;
 public class Atm 
 {
 	private String location;
-	private float totalAmmount;
+	private Float totalAmmount;
 	private AtmTransactions transaction;
 	public Atm(String location, float totalAmmount, AtmTransactions transaction)
 	{
 		this.location = location;
-		this.totalAmmount = totalAmmount;
+		this.totalAmmount = Float.valueOf(totalAmmount);
 		this.transaction = transaction;
 	}
 
@@ -37,7 +37,7 @@ public class Atm
 		}
 		else
 			System.out.println("Invalid Input can not find the Account");
-		
+
 
 	}
 	public void menu(Account acc)
@@ -48,19 +48,28 @@ public class Atm
 		{
 			System.out.println("\n************* Customer Menu************\n");
 			System.out.println("Name :"+acc.getAccHolderName()+"  Bank :"+acc.getBankName()+" Current Balance:"+acc.getBalance());
-			System.out.println("Enter your Choice 1.WithDraw   2.Tranfer Money   3.Mini StateMent   4.exit");
+			System.out.println("\nEnter your Choice 1.WithDraw   2.Tranfer Money   3.Mini StateMent   4.exit");
 			int choice = sc.nextInt();
 			switch(choice)
 			{
 			case 1:
 				System.out.println("Enter the ammount you want to widhdraw");
+				String result;
 				float ammount=sc.nextFloat();
+				
 				if(totalAmmount>=ammount)
-					System.out.println(transaction.withdraw(ammount, acc, location,this.totalAmmount));
+					if((result=transaction.withdraw(ammount, acc, location,totalAmmount)).equals("1"))
+					{
+						System.out.println("The ammount "+ammount+" withdrawn succesfully \nCurrent Balance : "+acc.getBalance());
+						this.totalAmmount-=ammount;
+					}
+					else
+						System.out.println(result);
 				else
 					System.out.println("Not enough money in the ATM only "+totalAmmount+" in the ATM");
+
 				break;
-			
+
 
 			case 2:
 				Account receiver;
@@ -71,21 +80,21 @@ public class Atm
 				System.out.println("Enter receivers Bank Id");
 				int bankId=sc.nextInt();
 
-				if((receiver=transaction.getAccount(bankId, accNo))!=null)
+				if((receiver=transaction.getAccount(bankId, accNo))!=null && receiver!=acc)
 					System.out.println(transaction.transferMoney(amt, acc, receiver, location));
 				else
 					System.out.println("Invalid Input can not find the Account");
 				break;
 
 			case 3:
-			
+
 				System.out.println("************* Mini StateMent **********");
 				System.out.println("Description                 "+"     "+"   Credit "+"     "+"Debit "+"              "+"CurrBalance");
 				for(String str : acc.getPassBook())
 					System.out.println(str);
 				System.out.println("*****************************************\n");
 				break;
-			
+
 			case 4:
 				System.out.println("******* Thanks for Banking With Us*******\n");
 				cho = false;

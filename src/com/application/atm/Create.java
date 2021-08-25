@@ -2,6 +2,7 @@ package com.application.atm;
 
 import com.application.bank.Account;
 import com.application.bank.Bank;
+import com.application.bank.HdfcBank;
 import com.application.bank.StateBank;
 
 public class Create {
@@ -15,7 +16,7 @@ public class Create {
 		dispatcher.addBank(hdfcBank.getId(), (AtmBanking)hdfcBank);
 		AtmTransactions tran=new AtmTransactions(dispatcher);
 		
-		Atm atm=new Atm("State BankAtM", 10000, tran);
+		Atm atm=new Atm("State BankAtm", 10000, tran);
 		Account acc=new Account("Jashwin", 12000, 1234);
 		Account acc1=new Account("ashwin", 12000, 1234);
 		Account acc2=new Account("kumar", 12000, 1237);

@@ -2,12 +2,12 @@ package com.application.bank;
 
 import com.application.atm.AtmBanking;
 
-public class StateBank extends Bank implements AtmBanking
+public class HdfcBank extends Bank implements AtmBanking
 {
-	
-	public StateBank(int id) {
-		super(id, "State Bank ");
-		code="SB";
+
+	public HdfcBank(int id) {
+		super(id, " Hdfc Bank ");
+		code="HD";
 	}
 	
 	@Override
