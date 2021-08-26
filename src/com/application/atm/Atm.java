@@ -7,7 +7,7 @@ import com.application.bank.Account;
 public class Atm 
 {
 	private String location;
-	private Float totalAmmount;
+	private float totalAmmount;
 	private AtmTransactions transaction;
 	public Atm(String location, float totalAmmount, AtmTransactions transaction)
 	{
@@ -87,7 +87,6 @@ public class Atm
 				break;
 
 			case 3:
-
 				System.out.println("************* Mini StateMent **********");
 				System.out.println("Description                 "+"     "+"   Credit "+"     "+"Debit "+"              "+"CurrBalance");
 				for(String str : acc.getPassBook())
