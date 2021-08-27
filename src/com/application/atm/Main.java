@@ -17,7 +17,7 @@ public class Main {
 		dispatcher.addBank(indianBank.getCode(),indianBank);
 
 		Atm sbiAtm=getAtm(stateBank, "Chennai", 15000, dispatcher);
-		Atm hdmiAtm=getAtm(hdfcBank, "Coimbatore", 15000, dispatcher);
+		Atm hdfcAtm=getAtm(hdfcBank, "Coimbatore", 15000, dispatcher);
 
 		Account account1=new Account("Jashwin", 12000, 1234,173645635);
 		Account account2=new Account("Ram", 12000, 1234,723646734);
@@ -40,7 +40,7 @@ public class Main {
 		System.out.println(account5);
 		System.out.println(account6);
 		while(true)
-			sbiAtm.loginMenu();
+			hdfcAtm.loginMenu();
 	}
 
 	public static Atm getAtm(Bank bank, String location , float initialAmmount ,AccountDispatcher dispatcher)

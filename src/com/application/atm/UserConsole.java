@@ -95,7 +95,7 @@ public class UserConsole
 		if(Integer.parseInt(sc.nextLine())==2)
 		{
 			printAvailbleBanksCode();
-			System.out.println("PRESS Q To Cancel\nEnter receivers Bank Code");
+			System.out.println("PRESS Q To Cancel\nEnter receivers Bank Code \\ Q (Quit)");
 			code=sc.nextLine();
 			if(code.equalsIgnoreCase("Q"))
 				return;
