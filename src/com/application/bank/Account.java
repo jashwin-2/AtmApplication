@@ -9,30 +9,38 @@ public class Account
 	private String accHolderName;
 	private float balance;
 	private int pin;
-	private String code;
-	private int bankId;
+	private String bankCode;
 	private String bankName;
-	private List<String> passBook;
+	private List<TransactionDetails> transactions;
+	private int transactionCount;
 	
 	public Account(String accHolderName, float balance, int pin) 
 	{
-		passBook=new ArrayList<>();
+		transactions=new ArrayList<>();
 		this.accHolderName = accHolderName;
 		this.balance = balance;
 		this.pin = pin;
+		this.transactionCount=1;
 	}
 	
 	@Override
 	public String toString() {
-		return "acc No :"+accNo+" Name : "+accHolderName+" Bank Name "+this.bankName+" Bank Id :"+bankId;
+		return "acc No :"+accNo+" Name : "+accHolderName+" Bank Name "+this.bankName+" Bank Code :"+bankCode;
 	}
 
 	public void setAccNo(int accNo) {
 		this.accNo = accNo;
 	}
-	public void addInPassBook(String str)
+	
+	public List<TransactionDetails> getTransactions() 
 	{
-		passBook.add(str);
+		return transactions;
+	}
+
+	public void addTransactions(TransactionDetails obj)
+	{
+		obj.setTransactionNo(transactionCount++);
+		transactions.add(obj);
 	}
 	
 	public String getAccHolderName() {
@@ -60,18 +68,7 @@ public class Account
 	public int getAccNo() {
 		return accNo;
 	}
-	public List<String> getPassBook() {
-		return passBook;
-	}
-
-	public String getCode() {
-		return code;
-	}
-
-	public void setCode(String code) {
-		this.code = code;
-	}
-
+	
 	public String getBankName() {
 		return bankName;
 	}
@@ -80,12 +77,13 @@ public class Account
 		this.bankName = bankName;
 	}
 
-	public int getBankId() {
-		return bankId;
+	public void setBanCode(String bankCode) {
+		this.bankCode = bankCode;
 	}
 
-	public void setBankId(int bankId) {
-		this.bankId = bankId;
+	public String getBankCode() {
+		
+		return this.bankCode;
 	}
 	
 }

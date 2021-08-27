@@ -7,25 +7,34 @@ import com.application.bank.Account;
 
 public class AccountDispatcher
 {
-	private Map<Integer,AtmBanking> banks;
+	private Map<String,AtmBanking> banks;
 	
 	
 	public AccountDispatcher() {
-		this.banks = new HashMap<Integer,AtmBanking>();
+		this.banks = new HashMap<String,AtmBanking>();
 	}
 
 
-	public Account getAccount(int id,int number)
+	public Account getAccount(String code,int number)
 	{
-		if(banks.containsKey(id))
-			return banks.get(id).getAccountById(number);
+		if(banks.containsKey(code))
+			return banks.get(code).getAccountById(number);
 		
 		else
 			return null;
 	}
 	
-	public void addBank(int id,AtmBanking bank)
+	public Account getAccount(String atmNo)
 	{
-		banks.put(id, bank);
+		
+		return null;
 	}
+	
+	public void addBank(String code,AtmBanking bank)
+	{
+		banks.put(code, bank);
+	}
+
+
+	
 }

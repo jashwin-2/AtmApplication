@@ -14,7 +14,7 @@ public class Create {
 		AccountDispatcher dispatcher= new AccountDispatcher();
 		dispatcher.addBank(stateBank.getId(), (AtmBanking)stateBank);
 		dispatcher.addBank(hdfcBank.getId(), (AtmBanking)hdfcBank);
-		AtmTransactions tran=new AtmTransactions(dispatcher);
+		AtmServices tran=new AtmServices(dispatcher);
 		
 		Atm atm=new Atm("State BankAtm", 10000, tran);
 		Account acc=new Account("Jashwin", 12000, 1234);
