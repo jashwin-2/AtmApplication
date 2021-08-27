@@ -1,16 +1,16 @@
 package com.application.atm;
-
+import java.util.Map.Entry;
 import java.util.Scanner;
-
 import com.application.bank.Account;
 import com.application.bank.TransactionDetails;
+import com.application.bank.TransactionType;
 
 public class UserConsole 
 {
 	protected AtmDetails details;
 	private AtmServices services;
 	protected Scanner sc;
-	
+
 	public UserConsole(AtmServices services,AtmDetails details) 
 	{
 		this.details=details;
@@ -23,20 +23,21 @@ public class UserConsole
 		UserOptions choice = null;
 		do {
 			printUserOptions(acc);
-			
+
 			try {
-			choice=UserOptions.values()[Integer.parseInt(sc.nextLine())-1];
+				choice=UserOptions.values()[Integer.parseInt(sc.nextLine())-1];
 			}
 			catch(ArrayIndexOutOfBoundsException excep)
 			{
 				System.out.println("Invalid input ");
 			}
-			
+
 		}while(choice==null || serviceController(choice,acc));
 	}
 
 
 	protected void printUserOptions(Account acc) {
+
 		System.out.println("\n************* Customer Menu************\n");
 		System.out.println("Name :"+acc.getAccHolderName()+"  Bank :"+acc.getBankName()+" Current Balance:"+acc.getBalance()+" Registered Mobile no : "+acc.getMobileNo());
 		System.out.println("Enter your choice ");
@@ -73,12 +74,12 @@ public class UserConsole
 		return true;
 
 	}
-	
+
 	public void withdraw(Account acc)
 	{
 		System.out.println("Enter the ammount you want to widhdraw");
 		float ammount=Float.parseFloat(sc.nextLine());
-		
+
 		if(details.getTotalAmmount()>=ammount)
 			System.out.println(services.withdraw(ammount,acc));
 		else
@@ -88,12 +89,21 @@ public class UserConsole
 	public void moneyTransfer(Account acc)
 	{
 		Account receiver;
+		String code = details.getBankCode();
+		System.out.println("\nEnter your choice ");
+		System.out.println("1 -->  To " + details.getBankName()+" Accounts \n2 --> To Other Bank Accounts");
+		if(Integer.parseInt(sc.nextLine())==2)
+		{
+			printAvailbleBanksCode();
+			System.out.println("PRESS Q To Cancel\nEnter receivers Bank Code");
+			code=sc.nextLine();
+			if(code.equalsIgnoreCase("Q"))
+				return;
+		}
 		System.out.println("Enter the ammount you want to transfer");
 		float amt=Float.parseFloat(sc.nextLine());
 		System.out.println("Enter receivers Account Number ");
 		int accNo=Integer.parseInt(sc.nextLine());
-		System.out.println("Enter receivers Bank Code");
-		String code=sc.nextLine();
 
 		if((receiver=services.getAccount(code, accNo))!=null && receiver!=acc)
 			System.out.println(services.transferMoney(amt, acc, receiver));
@@ -104,9 +114,25 @@ public class UserConsole
 	public void printMinistateMent(Account acc)
 	{
 		System.out.println("************* Mini StateMent **********");
-		System.out.println("Description                 "+"     "+"   Credit Or  Debit "+"              "+"CurrBalance");
-		for(TransactionDetails str : services.miniStateMent(acc))
-			System.out.println(str);
+		System.out.println("Description                 "+"     "+"     Credit Or  Debit "+"          "+"CurrBalance");
+		for(TransactionDetails transaction : services.miniStateMent(acc))
+		{
+			if(transaction.getType().equals(TransactionType.WITHDRAW) || transaction.getType().equals(TransactionType.DEPOSITE))
+				System.out.println(transaction.getType()+" from "+transaction.getSourceOfTransaction()+"        "+transaction.getAmmount()+"  "+transaction.getType().getResult()+"         "+transaction.getCurrBalanceAfterTransaction());
+			else
+				System.out.println(transaction.getType()+" "+transaction.getSenderOrReceiver().getBankCode()+transaction.getSenderOrReceiver().getAccNo()+" from "+transaction.getSourceOfTransaction()+"   "+transaction.getAmmount()+"  "+transaction.getType().getResult()+"         "+transaction.getCurrBalanceAfterTransaction());
+		}
 		System.out.println("*****************************************\n");
 	}
+
+
+	private void printAvailbleBanksCode()
+	{
+		System.out.println("*******Available Banks and Codes **********");
+		System.out.println("Bank Name           Bank Code ");
+		for(Entry<String, String> entry : services.getAvilableBanks().entrySet())
+			if(!entry.getKey().equals(details.getBankCode()))
+				System.out.println(entry.getValue()+"	--->  "+entry.getKey());
+	}
+
 }

@@ -7,7 +7,7 @@ public class AtmDetails
 	private float totalAmmount;
 	private String bankName;
 	private String BankCode;
-	
+
 	public AtmDetails(int atmId, String location, float totalAmmount, String bankName, String bankCode)
 	{
 		this.atmId = atmId;
@@ -16,7 +16,7 @@ public class AtmDetails
 		this.bankName = bankName;
 		BankCode = bankCode;
 	}
-	
+
 	public String getLocation() {
 		return location;
 	}
@@ -31,7 +31,7 @@ public class AtmDetails
 	}
 	public void setTotalAmmount(float amt) {
 		this.totalAmmount=amt;
-		
+
 	}
 	public int getAtmId() {
 		return atmId;

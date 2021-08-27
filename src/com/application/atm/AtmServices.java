@@ -1,9 +1,13 @@
 package com.application.atm;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import com.application.bank.Account;
 import com.application.bank.TransactionDetails;
+import com.application.bank.TransactionType;
 
 public class AtmServices 
 {
@@ -20,7 +24,7 @@ public class AtmServices
 	{
 		return dispatcher.getAccount(atmNo);
 	}
-	
+
 	public Account getAccount(String code,int accNo)
 	{
 		return dispatcher.getAccount(code , accNo);
@@ -28,12 +32,12 @@ public class AtmServices
 
 	public String withdraw(float ammount,Account acc)
 	{
-		
+
 		if(ammount>0 && acc.getBalance()>=ammount)
 		{
 			acc.setBalance(acc.getBalance()-ammount);
 			details.setTotalAmmount(details.getTotalAmmount()-ammount);
-			acc.addTransactions(new TransactionDetails(ammount, acc.getBalance(), "Winthdrawn from "+details.getBankName(), "Debit"));
+			acc.addTransactions(new TransactionDetails( ammount, acc.getBalance(),TransactionType.WITHDRAW ,details.getBankName()+" ATM"));
 			return "The ammount "+ammount+" withdrawn succesfully \nCurrent Balance : "+acc.getBalance();
 		}
 		else
@@ -51,8 +55,8 @@ public class AtmServices
 		{
 			sender.setBalance(sender.getBalance()-ammount);
 			receiver.setBalance(receiver.getBalance()+ammount);
-			sender.addTransactions(new TransactionDetails(ammount, sender.getBalance(),"Transfered to "+receiver.getAccNo(), "Debit"));
-			receiver.addTransactions(new TransactionDetails(ammount, sender.getBalance(),"Received from "+sender.getBankCode()+sender.getAccNo()+" from "+details.getBankName()+ammount, "Credit"));
+			sender.addTransactions(new TransactionDetails( ammount, sender.getBalance(),TransactionType.TRANSFERRED ,details.getBankName()+" ATM",receiver));
+			receiver.addTransactions(new TransactionDetails( ammount, receiver.getBalance(),TransactionType.RECEIVED ,details.getBankName()+" ATM",sender));
 			return "The ammount "+ammount+" transfered succesfully \nCurrent Balance : "+sender.getBalance();
 		}
 		else
@@ -60,7 +64,7 @@ public class AtmServices
 			if(ammount<=0)
 				return "Invalid input can not withdraw 0 or negative ammount";	
 			else
-				return "only "+sender.getBalance()+" in your account Can not withdraw "+ammount;
+				return "only "+sender.getBalance()+" in your account Can not transfer "+ammount;
 		}
 	}
 
@@ -74,5 +78,12 @@ public class AtmServices
 			return acc.getTransactions().subList(size-5,size);
 		}
 	}
+	public Map<String, String> getAvilableBanks()
+	{
+		Map<String , String> banksCodes =new HashMap<>();
+		for(Entry<String, OnlineBank> entry : dispatcher.getBanks().entrySet())
+			banksCodes.put(entry.getKey(), entry.getValue().getName());
+		return banksCodes;
 
+	}
 }

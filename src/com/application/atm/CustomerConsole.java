@@ -37,11 +37,10 @@ public class CustomerConsole extends UserConsole
 
 	private void serviceController(CustomerOptions choice, Account acc) 
 	{
-		sc.nextLine();
 		if(choice.equals(CustomerOptions.CHANGE_MOBILE_NO))	
 		{
-			System.out.println("Enter your new nmwe");
-			acc.setAccHolderName(sc.nextLine());
+			System.out.println("Enter your new mobile number");
+			acc.setMobileNo(Long.parseLong(sc.nextLine()));
 		}
 	}
 
