@@ -20,13 +20,15 @@ public class Atm
 		String atmNumber;
 		Account acc;
 		Scanner sc=new Scanner(System.in);
+		System.out.println("*****WELCOME TO "+details.getBankName()+" ATM "+details.getLocation()+"*********\n");
 		System.out.println("*********Login Menu**********\n");
 		System.out.println("Enter your Atm number Number ");	
 		atmNumber=sc.nextLine();
+
 		if((acc=services.getAccount(atmNumber))!=null)
 		{
 			System.out.println("Enter your pin Number ");
-			if(acc.getPin()==sc.nextInt())
+			if(acc.getPin()==Integer.parseInt(sc.nextLine()))
 			{
 				if(acc.getBankCode()!=this.details.getBankCode())
 					new UserConsole(services , details).sessionManager(acc);

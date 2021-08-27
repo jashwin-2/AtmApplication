@@ -22,7 +22,9 @@ public class CustomerConsole extends UserConsole
 			if(userInput <= userOptionsCount)
 			{
 				choice = UserOptions.values()[userInput-1];
-				super.serviceController(choice, acc);
+				if(!super.serviceController(choice, acc))
+					return;
+				choice = null;
 			}
 
 			else if(userInput <= userOptionsCount + CustomerOptions.values().length)
@@ -37,8 +39,8 @@ public class CustomerConsole extends UserConsole
 	{
 		if(choice.equals(CustomerOptions.CHANGE_MOBILE_NO))	
 		{
-			System.out.println("Enter your new nmwe");
-			acc.setAccHolderName(sc.nextLine());
+			System.out.println("Enter your new mobile number");
+			acc.setMobileNo(Long.parseLong(sc.nextLine()));
 		}
 	}
 

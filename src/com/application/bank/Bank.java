@@ -3,40 +3,44 @@ package com.application.bank;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class Bank 
+import com.application.atm.OnlineBank;
+
+public class Bank implements OnlineBank
 {
-	private int accCount=1;
-	private int id;
+	private int accountCount;
+	private int atmCount;
 	protected String code;
 	private String name;
 	protected List<Account> accounts;
-	
-	
-	public Bank(int id, String name) {
+
+
+	public Bank(String name , String code) {
 		accounts=new ArrayList<Account>();
-		this.id = id;
+		this.code=code;
+		accountCount=1;
+		setAtmCount(1);
 		this.name = name;
 	}
-	
-	public void addAccount(Account acc)
+
+	public void addAccount(Account account)
 	{
-		acc.setCode(this.code);
-		accounts.add(acc);
-		acc.setBankName(name);
-		acc.setBankId(id);
-		acc.setAccNo(accCount++);
+		account.setBankCode(this.code);
+		accounts.add(account);
+		account.setBankName(name);
+		account.setAccNo(accountCount++);
+		account.setAtmNumber(code+account.getAccNo());
 	}
-	
+
+	@Override
+	public Account getAccountById(int number) 
+	{
+		for(Account account : accounts)
+			if(account.getAccNo()==number)
+				return account;
+		return null;
+	}
 	public String getCode() {
 		return code;
-	}
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	public String getName() {
@@ -45,6 +49,14 @@ public abstract class Bank
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getAtmCount() {
+		return atmCount;
+	}
+
+	public void setAtmCount(int atmCount) {
+		this.atmCount = atmCount;
 	}
 
 }

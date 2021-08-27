@@ -2,43 +2,33 @@ package com.application.bank;
 
 public class TransactionDetails 
 {
-	
+
 	private int transactionNo;
 	private float ammount;
 	private float currBalanceAfterTransaction;
-	private String description;
-	private String type;
-	public TransactionDetails(float ammount, float currBalanceAfterTransaction, String description, String type) {
+	private Account senderOrReceiver;
+	private TransactionType type;
+	private String sourceOfTransaction;
+	
+	public TransactionDetails(float ammount, float currBalanceAfterTransaction,TransactionType type, String source) {
 		this.ammount = ammount;
 		this.currBalanceAfterTransaction = currBalanceAfterTransaction;
-		this.description = description;
+		this.sourceOfTransaction=source;
 		this.type = type;
 	}
+	
+	public TransactionDetails(float ammount, float currBalanceAfterTransaction,TransactionType type,String source,Account acc) {
+		this(ammount,currBalanceAfterTransaction,type,source);
+		this.senderOrReceiver=acc;
+	}	
 
-	private Account reciver;
-	
-	
-	
-	public Account getReciver() {
-		return reciver;
-	}
-	public void setReciver(Account reciver) {
-		this.reciver = reciver;
-	}
-	
 	public float getAmmount() {
 		return ammount;
 	}
-	public String getDescription() {
-		return description;
-	}
-	public void setDescription(String description) {
-		this.description = description;
-	}
-	public String getType() {
+
+	public TransactionType getType() {
 		return type;
 	}
-
 	public int getTransactionNo() {
 		return transactionNo;
 	}
@@ -49,5 +39,11 @@ public class TransactionDetails
 
 	public float getCurrBalanceAfterTransaction() {
 		return currBalanceAfterTransaction;
+	}
+	public Account getSenderOrReceiver() {
+		return senderOrReceiver;
+	}
+	public String getSourceOfTransaction() {
+		return sourceOfTransaction;
 	}
 }
