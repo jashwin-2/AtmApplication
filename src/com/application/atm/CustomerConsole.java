@@ -12,8 +12,8 @@ public class CustomerConsole extends UserConsole
 
 	public void sessionManager(Account acc)
 	{
-		UserOptions choice = null;
-		int userInput=0 , userOptionsCount = UserOptions.values().length;
+		UserServiceType choice = null;
+		int userInput=0 , userOptionsCount = UserServiceType.values().length;
 		do {
 			printUserOptions(acc);
 			printUserOptions();
@@ -21,23 +21,23 @@ public class CustomerConsole extends UserConsole
 
 			if(userInput <= userOptionsCount)
 			{
-				choice = UserOptions.values()[userInput-1];
+				choice = UserServiceType.values()[userInput-1];
 				if(!super.serviceController(choice, acc))
 					return;
 				choice = null;
 			}
 
-			else if(userInput <= userOptionsCount + CustomerOptions.values().length)
-				serviceController(CustomerOptions.values()[userInput-userOptionsCount-1],acc);
+			else if(userInput <= userOptionsCount + CustomerServiceType.values().length)
+				serviceController(CustomerServiceType.values()[userInput-userOptionsCount-1],acc);
 			else
 				System.out.println("Invalid input ");
 
 		}while(choice==null || serviceController(choice,acc));
 	}
 
-	private void serviceController(CustomerOptions choice, Account acc) 
+	private void serviceController(CustomerServiceType choice, Account acc) 
 	{
-		if(choice.equals(CustomerOptions.CHANGE_MOBILE_NO))	
+		if(choice.equals(CustomerServiceType.CHANGE_MOBILE_NO))	
 		{
 			System.out.println("Enter your new mobile number");
 			acc.setMobileNo(Long.parseLong(sc.nextLine()));
@@ -45,8 +45,8 @@ public class CustomerConsole extends UserConsole
 	}
 
 	private void printUserOptions() {
-		int ind = UserOptions.values().length+1;
-		for(CustomerOptions option : CustomerOptions.values())
+		int ind = UserServiceType.values().length+1;
+		for(CustomerServiceType option : CustomerServiceType.values())
 			System.out.println(ind+"--> "+option);
 	}
 }

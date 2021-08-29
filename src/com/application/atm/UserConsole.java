@@ -20,12 +20,12 @@ public class UserConsole
 
 	public void sessionManager(Account acc)
 	{
-		UserOptions choice = null;
+		UserServiceType choice = null;
 		do {
 			printUserOptions(acc);
 
 			try {
-				choice=UserOptions.values()[Integer.parseInt(sc.nextLine())-1];
+				choice=UserServiceType.values()[Integer.parseInt(sc.nextLine())-1];
 			}
 			catch(ArrayIndexOutOfBoundsException excep)
 			{
@@ -42,12 +42,12 @@ public class UserConsole
 		System.out.println("Name :"+acc.getAccHolderName()+"  Bank :"+acc.getBankName()+" Current Balance:"+acc.getBalance()+" Registered Mobile no : "+acc.getMobileNo());
 		System.out.println("Enter your choice ");
 		int ind=1;
-		for(UserOptions opt : UserOptions.values())
+		for(UserServiceType opt : UserServiceType.values())
 			System.out.println(ind+++"--> "+opt);		
 
 	}
 
-	public boolean serviceController(UserOptions choice,Account acc)
+	public boolean serviceController(UserServiceType choice,Account acc)
 	{
 
 		switch(choice)
