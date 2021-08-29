@@ -22,7 +22,7 @@ public class UserConsole
 	{
 		UserServiceType choice = null;
 		do {
-			printUserOptions(acc);
+			printUserServices(acc);
 
 			try {
 				choice=UserServiceType.values()[Integer.parseInt(sc.nextLine())-1];
@@ -36,7 +36,7 @@ public class UserConsole
 	}
 
 
-	protected void printUserOptions(Account acc) {
+	protected void printUserServices(Account acc) {
 
 		System.out.println("\n************* Customer Menu************\n");
 		System.out.println("Name :"+acc.getAccHolderName()+"  Bank :"+acc.getBankName()+" Current Balance:"+acc.getBalance()+" Registered Mobile no : "+acc.getMobileNo());
@@ -100,10 +100,10 @@ public class UserConsole
 			if(code.equalsIgnoreCase("Q"))
 				return;
 		}
-		System.out.println("Enter the ammount you want to transfer");
-		float amt=Float.parseFloat(sc.nextLine());
 		System.out.println("Enter receivers Account Number ");
 		int accNo=Integer.parseInt(sc.nextLine());
+		System.out.println("Enter the ammount you want to transfer");
+		float amt=Float.parseFloat(sc.nextLine());
 
 		if((receiver=services.getAccount(code, accNo))!=null && receiver!=acc)
 			System.out.println(services.transferMoney(amt, acc, receiver));

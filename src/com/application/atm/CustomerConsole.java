@@ -13,13 +13,13 @@ public class CustomerConsole extends UserConsole
 	public void sessionManager(Account acc)
 	{
 		UserServiceType choice = null;
-		int userInput=0 , userOptionsCount = UserServiceType.values().length;
+		int userInput=0 , userServicesCount = UserServiceType.values().length;
 		do {
-			printUserOptions(acc);
-			printUserOptions();
+			printUserServices(acc);
+			printCustomerServices();
 			userInput=Integer.parseInt(sc.nextLine());
 
-			if(userInput <= userOptionsCount)
+			if(userInput <= userServicesCount)
 			{
 				choice = UserServiceType.values()[userInput-1];
 				if(!super.serviceController(choice, acc))
@@ -27,8 +27,8 @@ public class CustomerConsole extends UserConsole
 				choice = null;
 			}
 
-			else if(userInput <= userOptionsCount + CustomerServiceType.values().length)
-				serviceController(CustomerServiceType.values()[userInput-userOptionsCount-1],acc);
+			else if(userInput <= userServicesCount + CustomerServiceType.values().length)
+				serviceController(CustomerServiceType.values()[userInput-userServicesCount-1],acc);
 			else
 				System.out.println("Invalid input ");
 
@@ -44,9 +44,9 @@ public class CustomerConsole extends UserConsole
 		}
 	}
 
-	private void printUserOptions() {
+	private void printCustomerServices() {
 		int ind = UserServiceType.values().length+1;
-		for(CustomerServiceType option : CustomerServiceType.values())
-			System.out.println(ind+"--> "+option);
+		for(CustomerServiceType service : CustomerServiceType.values())
+			System.out.println(ind+"--> "+service);
 	}
 }
